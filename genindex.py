@@ -1,16 +1,24 @@
 #!/usr/bin/env python3
-
+#
+#  Generates a html index file from a Mailman archive directory sorted by subject
+#
+#  Edit the paths below to the mailman archive to suit your needs
+#
+#  You can fetch mailman archives with this repo:
+#       https://github.com/philgyford/mailman-archive-scraper/
+#
+#
 from bs4 import BeautifulSoup
 import errno
 import os
 import sys
 
 web_url= "http://www.tuxtown.net/pipermail/d66/"
-walk_dir = sys.argv[1]
 index="/run/media/reinold/SEAGATE/sites/tuxtown/index.html"
+htmlindexfile="/run/media/reinold/SEAGATE/sites/tuxtown/d66index.html"
+walk_dir="/run/media/reinold/SEAGATE/sites/tuxtown/html"
 
 print('walk_dir = ' + walk_dir)
-
 
 htmlstr="""
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -72,7 +80,7 @@ if __name__ == "__main__":
     newlinks = sorted(links, key=lambda links: links.string)
     lnks = list(newlinks)
 
-    Html_file= open("/run/media/reinold/SEAGATE/sites/tuxtown/d66index.html","w")
+    Html_file= open(htmlindexfile,"w")
     Html_file.write(htmlstr)
     for l in lnks:
         if (l.string != None):
